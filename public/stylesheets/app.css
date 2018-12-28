@@ -1,0 +1,16 @@
+.container{
+    margin-top: 9px;
+}
+.fix{
+    padding: 0.25rem;
+}
+.bg-light{
+    background-color: #e5e5e5!important;
+}
+.card{
+    border-radius: 0!important;
+    border: 0!important;
+}
+.card-body{
+    border: 1px solid rgba(0,0,0,.125);
+}

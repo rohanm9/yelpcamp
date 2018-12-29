@@ -1,0 +1,18 @@
+<!--edit comment-->
+
+<% include ../partials/header %>
+    <div class="container">
+        <h1 class="form-heading" >Edit the comment</h1>
+        <div class="row">
+            <div style="width:40%; margin:0 auto;">
+            <form action="/campgrounds/<%= campground_id %>/comments/<%= comment._id %>" method="POST">
+                <div class="form-group">
+                    <textarea class="form-control" name="comment[text]"><%= comment.text %></textarea>
+                </div>
+                <button class="btn btn-primary btn-block">SUBMIT</button>
+            </form>
+            <a style="display:block; margin-top:7px;"href="/campgrounds/<%= campground_id %>">Go back</a>
+            </div>
+       </div>
+    </div>
+<% include ../partials/footer %>

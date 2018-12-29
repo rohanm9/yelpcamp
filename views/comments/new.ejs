@@ -1,10 +1,9 @@
-<!--new comments file-->
+<!--new comment-->
 
-
-<% include ../partials/header %>    
+<% include ../partials/header %>
     <div class="container">
-        <h1 style="text-align:center; margin-top:15px; margin-bottom:30px; ">Add a comment to <%= campground.name %></h1>
-        <div class="row">       
+        <h1 class="form-heading">Add a comment to <%= campground.name %></h1>
+        <div class="row">
             <div style="width:40%; margin:0 auto;">
             <form action="/campgrounds/<%= campground._id %>/comments" method="POST">
                 <div class="form-group">

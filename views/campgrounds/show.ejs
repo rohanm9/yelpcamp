@@ -16,11 +16,14 @@
                     <h6 class="float-right">$9.00/night</h6>
                     <a href="#"><h4><strong><%= campground.name%></strong></h4></a>
                     <p><%- campground.description %></p>
-                    <small style="display:block;">Created by <strong><em><%= campground.author.username %></em></strong></small>
-                    <small>
-                        <a class="btn btn-sm btn-success" href="/campgrounds/<%= campground._id %>/edit"> Edit </a>
-                        <a class="btn btn-sm btn-warning" href="/campgrounds/<%= campground._id %>/delete"> Delete </a>
-                    </small>
+                    <small>Created by <strong><em><%= campground.author.username %></em></strong></small>
+                    <% if(currentUser && campground.author.id.equals(currentUser._id)){ %>
+                        <% /* if there is not cuurentUser then above statement will short circuit */ %>
+                        <small>
+                            <a class="btn btn-sm btn-success" href="/campgrounds/<%= campground._id %>/edit"> Edit </a>
+                            <a class="btn btn-sm btn-warning" href="/campgrounds/<%= campground._id %>/delete"> Delete </a>
+                        </small>
+                    <% } %>
                 </div>
             </div>
             <br>
@@ -33,6 +36,9 @@
                             <strong><%= comment.author.username %></strong>
                             <span class="float-right">10days ago</span>
                             <p><%- comment.text %></p>
+                            <small><a href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">Edit</a></small>
+                            <small><a href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/delete">D
+                                elete</a></small>
                         </div>
                     <% }); %>
                 </div>

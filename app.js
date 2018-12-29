@@ -34,12 +34,6 @@ app.use(function(req,res,next){
     res.locals.currentUser=req.user;
     next();
 });
-function isLoggedIn(req,res,next){
-    if(req.isAuthenticated()){
-        return next();
-    }
-    res.redirect('/login');
-}
 app.use('/campgrounds',campgroundRoutes);
 app.use('/campgrounds/:id/comments',commentRoutes);
 app.use('/',authRoutes);

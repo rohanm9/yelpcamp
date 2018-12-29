@@ -3,7 +3,9 @@ var express=require('express');
 var Campground=require('../models/camp');
 var Comment=require('../models/comment');
 var router=express.Router({mergeParams:true});
-router.get('/new',isLoggedIn,function(req,res){
+var middleObj=require('../middleware');
+
+router.get('/new',middleObj.isLoggedIn,function(req,res){
     Campground.findOne({_id:req.params.id},function(err,campground){
         if(err){
             console.log(err);
@@ -13,7 +15,7 @@ router.get('/new',isLoggedIn,function(req,res){
         }
     });
 });
-router.post('/',isLoggedIn,function(req,res){
+router.post('/',middleObj.isLoggedIn,function(req,res){
     Campground.findOne({_id:req.params.id},function(err,campground){
         if(err){
             console.log(err);
@@ -36,7 +38,7 @@ router.post('/',isLoggedIn,function(req,res){
     });
 });
 //edit and update comment
-router.get('/:comment_id/edit',checkcommentownership,function(req,res){
+router.get('/:comment_id/edit',middleObj.checkcommentownership,function(req,res){
     Comment.findOne({_id:req.params.comment_id},function(err,comment){
         if(err){
             console.log(err);
@@ -45,7 +47,7 @@ router.get('/:comment_id/edit',checkcommentownership,function(req,res){
         }
     });
 });
-router.post('/:comment_id',checkcommentownership,function(req,res){
+router.post('/:comment_id',middleObj.checkcommentownership,function(req,res){
     Comment.findOneAndUpdate({_id:req.params.comment_id},req.body.comment,function(err,comment){
         if(err){
             console.log(err);
@@ -56,7 +58,7 @@ router.post('/:comment_id',checkcommentownership,function(req,res){
 });
 
 //delete comment
-router.get('/:comment_id/delete',checkcommentownership,function(req,res){
+router.get('/:comment_id/delete',middleObj.checkcommentownership,function(req,res){
     Comment.findOneAndDelete({_id:req.params.comment_id},function(err){
         if(err){
             console.log(err);
@@ -65,30 +67,5 @@ router.get('/:comment_id/delete',checkcommentownership,function(req,res){
         }
     });
 });
-//authorisation
-function checkcommentownership(req,res,next){
-    if(req.isAuthenticated()){
-        Comment.findOne({_id:req.params.comment_id},function(err,foundComment){
-            if(err){
-                res.redirect('back');
-            }else{
-                if(foundComment.author.id.equals(req.user._id)){
-                    next();
-                }else{
-                    res.redirect('back');
-                }
-            }
-        });
-    }
-    else{
-        res.redirect('back');
-    }
-}
-function isLoggedIn(req,res,next){
-    if(req.isAuthenticated()){
-        return next();
-    }
-    res.redirect('/login');
-}
 
 module.exports=router;

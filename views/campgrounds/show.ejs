@@ -8,7 +8,7 @@
                 <li class="list-group-item">Info 2</li>
                 <li class="list-group-item">Info 3</li>
             </div>
-        </div> 
+        </div>
         <div class="col-md-9">
             <div class="card">
                 <img class="img-fluid"src="<%= campground.image %>">
@@ -16,7 +16,11 @@
                     <h6 class="float-right">$9.00/night</h6>
                     <a href="#"><h4><strong><%= campground.name%></strong></h4></a>
                     <p><%- campground.description %></p>
-                    <small>Created by <em><%= campground.author.username %></em></small>
+                    <small style="display:block;">Created by <strong><em><%= campground.author.username %></em></strong></small>
+                    <small>
+                        <a class="btn btn-sm btn-success" href="/campgrounds/<%= campground._id %>/edit"> Edit </a>
+                        <a class="btn btn-sm btn-warning" href="/campgrounds/<%= campground._id %>/delete"> Delete </a>
+                    </small>
                 </div>
             </div>
             <br>
@@ -37,9 +41,3 @@
     </div>
     </div>
 <% include ../partials/footer.ejs %>
-
-
-
-
-
-    

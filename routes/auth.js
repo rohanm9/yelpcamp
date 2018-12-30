@@ -23,7 +23,6 @@ router.post('/register',function(req,res){
         }else{
             passport.authenticate('local')(req,res,function(){
             req.flash('success','Welcome to YelpCamp '+user.username);
-            console.log('Successfully signin as '+user.username);
             res.redirect('/campgrounds');
         });
     }

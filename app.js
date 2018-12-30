@@ -15,7 +15,7 @@ var express   =require('express'),
     /*seedDB    =require('./seed');*/
 
 var Comment=require('./models/comment');
-mongoose.connect('mongodb://localhost:27017/yelp_camp',{useNewUrlParser:true});
+mongoose.connect('mongodb://rohan:qwerty123@ds145474.mlab.com:45474/yelpcampbyrohan',{useNewUrlParser:true});
 app.set('view engine','ejs');
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname+'/public'));
@@ -41,6 +41,6 @@ app.use(function(req,res,next){
 app.use('/campgrounds',campgroundRoutes);
 app.use('/campgrounds/:id/comments',commentRoutes);
 app.use('/',authRoutes);
-app.listen(3000,function(req,res){
+app.listen(process.env.PORT||8080,function(req,res){
     console.log('server has started!!');
 });

@@ -21,13 +21,14 @@ router.get('/new',middleObj.isLoggedIn,function(req,res){
 });
 router.post('/',middleObj.isLoggedIn,function(req,res){
     var name=req.body.name;
+    var price=req.body.price;
     var image=req.body.image;
     var descr=req.body.descr;
     var author={
         id: req.user._id,
         username: req.user.username
     };
-    var newCampground={name:name,image:image,author:author,description:descr};
+    var newCampground={name:name,price:price,image:image,author:author,description:descr};
     Campground.create(newCampground,function(err,newCamp){
         if(err){
             console.log(err);

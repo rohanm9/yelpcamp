@@ -8,7 +8,8 @@ var express   =require('express'),
     commentRoutes=require('./routes/comments'),
     campgroundRoutes=require('./routes/campgrounds'),
     LocalStrategy=require('passport-local'),
-    authRoutes=require('./routes/auth');
+    authRoutes=require('./routes/auth'),
+    flash=require('connect-flash');
 
     /*seedDB    =require('./seed');*/
 
@@ -22,7 +23,7 @@ app.use(require('express-session')({
     resave: 'false',
     saveUninitialized: 'false'
 }));
-
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 /*seedDB();*/
@@ -32,6 +33,8 @@ passport.deserializeUser(User.deserializeUser());
 //middleware applied to each and every route
 app.use(function(req,res,next){
     res.locals.currentUser=req.user;
+    res.locals.error=req.flash('error');
+    res.locals.success=req.flash('success');
     next();
 });
 app.use('/campgrounds',campgroundRoutes);
